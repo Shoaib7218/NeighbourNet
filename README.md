@@ -1,1 +1,1 @@
-Run the main app.py to execute this project 
+Run the main index.py to execute this project 
