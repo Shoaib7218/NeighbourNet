@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeighborNet - View Events</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .main-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .events-list {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 700px;
+        }
+        .event-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        .event-item:last-child {
+            border-bottom: none;
+        }
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 14px;
+            color: #aaa;
+        }
+        .btn-create-event {
+            display: block;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+         {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+        <div class="main-container">
+            <div class="events-list">
+                <h3 class="text-center mb-4">Upcoming Events</h3>
+                <a href="{{ url_for('ver.render_create_event',community=commo_id) }}" class="btn btn-primary btn-create-event">Create Event</a>
+
+                {%for i in data %}
+                <div class="event-item">
+
+                    <h5><strong>{{i.title}}</strong></h5>
+  <p>{{i.description}}</p>
+  <p><strong>Date:</strong> {{i.date}}</p>
+  <p><strong>Time:</strong> {{i.time}}</p>
+
+</div>
+                {%endfor%}
+
+
+
+
+                <!-- Additional events go here -->
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2024 NeighborNet. All rights reserved.
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

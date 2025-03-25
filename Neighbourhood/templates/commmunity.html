@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Community - NeighborNet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .form-header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .btn-primary {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+         {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+        <div class="form-container">
+            <h2 class="form-header">Create a Community {{ hello if hello else "no message" }}</h2>
+            <h1>{{ hello }}</h1>
+            <form action="/submit-community" method="POST">
+                <!-- Community Name -->
+                <div class="mb-3">
+                    <label for="communityName" class="form-label">Community Name</label>
+                    <input type="text" class="form-control" id="communityName" name="community_name" placeholder="Enter the community name" required>
+                </div>
+
+                <!-- Community Description -->
+                <div class="mb-3">
+                    <label for="communityDescription" class="form-label">Description</label>
+                    <textarea class="form-control" id="communityDescription" name="description" rows="4" placeholder="Describe your community" required></textarea>
+                </div>
+
+                <!-- Admin Name -->
+<!--                <div class="mb-3">-->
+<!--                    <label for="adminName" class="form-label">Admin Name</label>-->
+<!--                    <input type="text" class="form-control" id="adminName" name="admin_name" placeholder="Enter your name" required>-->
+<!--                </div>-->
+
+                <!-- Location -->
+                <div class="mb-3">
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" class="form-control" id="location" name="location" placeholder="Enter the community's area/location" required>
+                </div>
+
+                <!-- Privacy Type -->
+                <div class="mb-3">
+                    <label for="privacyType" class="form-label">Privacy Type</label>
+                    <select class="form-select" id="privacyType" name="privacy_type" required>
+                        <option value="public">Public - Anyone can join</option>
+                        <option value="private">Private - Invitation only</option>
+                    </select>
+                </div>
+
+                <!-- Community Rules -->
+                <div class="mb-3">
+                    <label for="communityRules" class="form-label">Community Rules</label>
+                    <textarea class="form-control" id="communityRules" name="rules" rows="3" placeholder="Outline basic rules for the community (e.g., no spam, respectful interactions)"></textarea>
+                </div>
+
+                <!-- Event Preferences -->
+                <div class="mb-3">
+                    <label for="eventPreferences" class="form-label">Event Preferences</label>
+                    <textarea class="form-control" id="eventPreferences" name="event_preferences" rows="3" placeholder="Describe the type of events your community will host (e.g., social gatherings, festivals, meetings)"></textarea>
+                </div>
+
+                <!-- Age Restrictions -->
+                <div class="mb-3">
+                    <label for="ageRestrictions" class="form-label">Age Restrictions (if any)</label>
+                    <input type="text" class="form-control" id="ageRestrictions" name="age_restrictions" placeholder="Specify if your community is for specific age groups (e.g., 18+)">
+                </div>
+
+                <!-- Emergency Contact -->
+                <div class="mb-3">
+                    <label for="emergencyContact" class="form-label">Emergency Contact for Community</label>
+                    <input type="text" class="form-control" id="emergencyContact" name="emergency_contact" placeholder="Provide a contact number in case of emergencies" required>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary">Create Community</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>

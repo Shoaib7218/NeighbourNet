@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neighbor.Net</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4fdf4; /* Light green background */
+            color: #333; /* Neutral text color */
+        }
+
+        /* Header */
+        header {
+            background-color: #8fd19e; /* Light green shade */
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        /* Main Section */
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            margin: 15px;
+            padding: 15px 30px;
+            font-size: 1em;
+            text-decoration: none;
+            color: white;
+            background-color: #4caf50; /* Green shade */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #3e8e41;
+        }
+
+        /* Forms */
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: none;
+        }
+
+        .form-container.active {
+            display: block;
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            color: #4caf50;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .form-group button:hover {
+            background-color: #3e8e41;
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .optional-note {
+            font-size: 0.8em;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+
+    <h1>Neighbor.Net</h1>
+</header>
+
+<!--<main>-->
+<!--    <h2>Welcome to Neighbor.Net</h2>-->
+<!--    <p>Connect with your community, share updates, and stay informed!</p>-->
+<!--    <a href="javascript:void(0);" class="btn" onclick="showForm('login')">Login</a>-->
+<!--    <a href="javascript:void(0);" class="btn" onclick="showForm('signup')">Sign Up</a>-->
+<!--</main>-->
+
+<main>
+    <div class="container-fluid">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <h2>Welcome to Neighbor.Net</h2>
+        <p>Connect with your community, share updates, and stay informed!</p>
+        <a href="javascript:void(0);" class="btn" onclick="showForm('login')">Login</a>
+        <a href="javascript:void(0);" class="btn" onclick="showForm('signup')">Sign Up</a>
+    </div>
+</main>
+
+<!-- Login Form -->
+<section id="login" class="form-container {% if form_type == 'login' %}active{% endif %}">
+    <div class="login-form">
+        <h2>Login</h2>
+        <form method="post" action="/login" autocomplete="off">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Signup Form -->
+<section id="signup" class="form-container {% if form_type == 'signup' %}active{% endif %}">
+    <div class="signup-form">
+        <h2>Sign Up</h2>
+        <form method="POST" action="/signup" enctype="multipart/form-data" autocomplete="off">
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" id="first_name" name="first_name" required>
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="text" id="last_name" name="last_name" required>
+            </div>
+            <div class="form-group">
+                <label for="username">User Mail</label>
+                <input type="email" id="username" name="username-email" placeholder="Auto-generated or optional" >
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" required>
+            </div>
+            <div class="form-group">
+                <label for="profile_image">Profile Picture <span class="optional-note">(Optional)</span></label>
+                <input type="file" id="profile_image" name="profile_image" accept="image/*">
+            </div>
+            <div class="form-group">
+                <button type="submit">Signup</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<footer>
+
+    <p>&copy; 2024 Neighbor.Net. All rights reserved.</p>
+</footer>
+
+<script>
+    function showForm(formType) {
+        const loginForm = document.getElementById('login');
+        const signupForm = document.getElementById('signup');
+
+        if (formType === 'login') {
+            loginForm.classList.add('active');
+            signupForm.classList.remove('active');
+        } else if (formType === 'signup') {
+            signupForm.classList.add('active');
+            loginForm.classList.remove('active');
+        }
+    }
+
+</script>
+{% if error %}
+<script>
+    alert("{{error}}")
+</script>
+{% endif %}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

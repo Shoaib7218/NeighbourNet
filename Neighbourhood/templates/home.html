@@ -1,0 +1,493 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>NeighborNet - Home</title>-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">-->
+<!--    <style>-->
+<!--        body {-->
+<!--            background-color: #f8f9fa;-->
+<!--        }-->
+<!--        .main-container {-->
+<!--            display: flex;-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+<!--        .sidebar {-->
+<!--            width: 25%;-->
+<!--            padding: 15px;-->
+<!--            background-color: #fff;-->
+<!--            border-right: 1px solid #ddd;-->
+<!--            height: calc(100vh - 40px);-->
+<!--            position: sticky;-->
+<!--            top: 0;-->
+<!--        }-->
+<!--        .sidebar h5 {-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+<!--        .list-group-item {-->
+<!--            display: flex;-->
+<!--            justify-content: space-between;-->
+<!--            align-items: center;-->
+<!--        }-->
+<!--        .list-group-item a {-->
+<!--            text-decoration: none;-->
+<!--            color: #007bff;-->
+<!--        }-->
+<!--        .content {-->
+<!--            width: 75%;-->
+<!--            padding: 20px;-->
+<!--        }-->
+<!--        .profile-section {-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+<!--        .profile-image {-->
+<!--            width: 50px;-->
+<!--            height: 50px;-->
+<!--            border-radius: 50%;-->
+<!--            margin-right: 15px;-->
+<!--        }-->
+<!--        .search-bar {-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+<!--        .footer {-->
+<!--            margin-top: 50px;-->
+<!--            text-align: center;-->
+<!--            font-size: 14px;-->
+<!--            color: #aaa;-->
+<!--        }-->
+<!--        .explore-section {-->
+<!--            margin-top: 30px;-->
+<!--        }-->
+<!--        .explore-slider {-->
+<!--            display: flex;-->
+<!--            overflow-x: auto;-->
+<!--            gap: 15px;-->
+<!--            padding: 10px;-->
+<!--        }-->
+<!--        .explore-card {-->
+<!--            flex: 0 0 auto;-->
+<!--            width: 200px;-->
+<!--            border: 1px solid #ddd;-->
+<!--            border-radius: 5px;-->
+<!--            padding: 10px;-->
+<!--            background-color: #fff;-->
+<!--            text-align: center;-->
+<!--        }-->
+<!--        .explore-card img {-->
+<!--            width: 100%;-->
+<!--            height: 100px;-->
+<!--            object-fit: cover;-->
+<!--            border-radius: 5px;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="container-fluid">-->
+<!--        <div class="main-container">-->
+<!--            &lt;!&ndash; Sidebar &ndash;&gt;-->
+<!--            <div class="sidebar">-->
+<!--                <h5>Your Communities</h5>-->
+<!--                <a href="/create-community" name="create-community">-->
+<!--                <button  class="btn btn-primary btn-sm mb-3 w-100">Create Community</button>-->
+<!--                    </a>-->
+<!--                      <ul class="list-group">-->
+<!--    {% for i in l1 %}-->
+<!--    <li class="list-group-item">-->
+<!--        <a href="/community">{{ i }}</a>-->
+<!--        <span>-->
+<!--            <i class="bi bi-bell-fill text-warning"-->
+<!--               data-bs-toggle="modal"-->
+<!--               data-bs-target="#notificationModal"-->
+<!--               data-community=""></i>-->
+<!--            <span class="badge bg-danger">3</span>-->
+<!--        </span>-->
+<!--    </li>-->
+<!--    {% endfor %}-->
+<!--</ul>-->
+
+
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Content Section &ndash;&gt;-->
+<!--            <div class="content">-->
+<!--                &lt;!&ndash; Profile Section &ndash;&gt;-->
+<!--                <div class="profile-section">-->
+<!--                    <img src="profile.jpg" alt="Profile Image" class="profile-image" id="profile-image">-->
+<!--                    <div>-->
+<!--                        <h5>Welcome, <span id="user-name">{{ username }}</span>!</h5>-->
+<!--                        <p>Explore and engage with your communities. {{hello}}</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash; Search Section &ndash;&gt;-->
+<!--                <div class="search-bar">-->
+<!--                    <div class="input-group mb-3">-->
+<!--&lt;!&ndash;                        <form action="/search-user" method="POST">&ndash;&gt;-->
+<!--                        <input type="text" class="form-control" name="search" placeholder="Search Users" aria-label="Search Users">-->
+<!--                        <a href="/searches"><button class="btn btn-outline-primary" name="searche">Search</button></a>-->
+<!--&lt;!&ndash;                        </form>&ndash;&gt;-->
+<!--                    </div>-->
+<!--&lt;!&ndash;                    {%if query%}&ndash;&gt;-->
+<!--                     <div class="explore-section">-->
+<!--                    <h5>Searched Users</h5>-->
+<!--                    <div class="explore-slider">-->
+<!--&lt;!&ndash;                        {% for i in result %}&ndash;&gt;-->
+<!--                        <div class="explore-card">-->
+<!--&lt;!&ndash;                            <img src="tech.jpg" > &lt;!&ndash; alt="tech" &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                            <h6>{{i['first_name']}} {{i['last_name']}}</h6>&ndash;&gt;-->
+<!--                            <button class="btn btn-sm btn-success">Request to Join</button>-->
+<!--                        </div>-->
+<!--&lt;!&ndash;                        {%endfor%}&ndash;&gt;-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--&lt;!&ndash;                {%elif query%}&ndash;&gt;-->
+<!--                    <p class="text-muted">No results found for "{{ query }}".</p>-->
+<!--&lt;!&ndash;                {%endif%}&ndash;&gt;-->
+<!--                    <div class="input-group mb-3">-->
+<!--                        <input type="text" class="form-control" placeholder="Search Communities" aria-label="Search Communities">-->
+<!--                        <button class="btn btn-outline-primary">Search</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <h1 class="text-center">NeighborNet Features</h1>-->
+<!--                <p class="text-center">Connect and collaborate with your neighborhood community!</p>-->
+
+<!--                &lt;!&ndash; Explore Communities Section &ndash;&gt;-->
+<!--                <div class="explore-section">-->
+<!--                    <h5>Explore Communities</h5>-->
+<!--                    <div class="explore-slider">-->
+<!--                        {% for i in all_community %}-->
+<!--                        <div class="explore-card">-->
+<!--                            <img src="tech.jpg" > &lt;!&ndash; alt="tech" &ndash;&gt;-->
+<!--                            <h6>{{i}}</h6>-->
+<!--                            <button class="btn btn-sm btn-success">Request to Join</button>-->
+<!--                        </div>-->
+<!--                        {%endfor%}-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="footer">-->
+<!--        &copy; 2024 NeighborNet. All rights reserved.-->
+<!--    </div>-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeighborNet - Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+    <style>
+        body {
+    background-color: #f8f9fa;
+}
+.main-container {
+    display: flex;
+    margin-top: 20px;
+}
+.sidebar {
+    width: 25%;
+    padding: 15px;
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    height: calc(100vh - 40px);
+    position: sticky;
+    top: 0;
+}
+.sidebar h5 {
+    margin-bottom: 20px;
+}
+.list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.list-group-item a {
+    text-decoration: none;
+    color: #007bff;
+}
+.content {
+    width: 75%;
+    padding: 20px;
+}
+.profile-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.profile-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+.footer {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 14px;
+    color: #aaa;
+}
+.explore-section {
+    margin-top: 30px;
+}
+.explore-slider {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding: 10px;
+}
+.explore-card {
+    flex: 0 0 auto;
+    width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #fff;
+    text-align: center;
+}
+.explore-card img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.search-link {
+    text-align: center;
+    margin-top: 20px;
+}
+.info-icon {
+    cursor: pointer;
+    color: blue;
+    margin-left: 5px;
+    position: relative; /* Ensure the tooltip positions relative to this element */
+}
+.tooltip {
+    visibility: hidden;
+    width: 160px;
+    background-color: #d4edda;
+    color: black;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    top: 125%;
+    left: 50%;
+    transform: translateX(-50%); /* Center the tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.info-icon:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="d-flex justify-content-end p-2">
+            <form action="{{ url_for('home.logout') }}" method="POST">
+                <button class="btn btn-outline-danger">Logout</button>
+            </form>
+        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+        <div class="main-container">
+            <!-- Sidebar -->
+            <div class="sidebar">
+    <button class="btn btn-primary btn-sm mb-3 w-100" onclick="toggleProfile()">My Profile</button>
+    <div id="profile-section" style="display: none;">
+        <!-- My Profile Section -->
+        <h5>My Profile</h5>
+        <a href="/remove-profile-picture-home"><button class="btn btn-sm btn-danger mb-2">Remove Profile</button></a>
+        <p><strong>Name:</strong> {{ first_name }} {{ last_name }}</p>
+        <p><strong>Age:</strong> {{ age }}</p>
+        <p><strong>Location:</strong> {{ location }}</p>
+        <p><strong>Username:</strong> {{ user_name }}</p>
+        <a href="#" onclick="confirmsignout('{{url_for('home.signout')}}')"><button class="btn btn-sm btn-danger mb-2">Sign Out</button></a>
+    </div>
+
+    <h5>Your Communities</h5>
+    <a href="/create-community" name="create-community">
+        <button class="btn btn-primary btn-sm mb-3 w-100">Create Community</button>
+    </a>
+    <!-- Tabs for Your Communities and Requests -->
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" id="your-communities-tab" data-bs-toggle="tab" href="#your-communities-content">Your Communities</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="requests-tab" data-bs-toggle="tab" href="#requests-content">Requests</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <!-- Your Communities Tab -->
+        <div class="tab-pane fade show active" id="your-communities-content">
+            <ul class="list-group">
+                {% for i in l1 %}
+                <li class="list-group-item">
+                    <a href="{{ url_for('c_page.render_page', community_n=i['_id'],username=user_name) }}">{{ i['community_name'] }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Requests Tab -->
+        <div class="tab-pane fade" id="requests-content">
+            <ul class="list-group">
+                {% for user in the_user %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <div class="ms-3">
+                            <div><strong>Community Name:</strong> {{ user['commo_name'] }}</div>
+                            <div><strong>Admin Name:</strong> {{ user['admin_name'] }}</div>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="{{url_for('home.accept_commo_request',commo_id=user['community_id'])}}">
+                            <button class="btn btn-success btn-sm">Accept</button>
+                        </a>
+                        <a href="{{url_for('home.reject_commo_request',commo_id=user['community_id'])}}">
+                            <button class="btn btn-danger btn-sm">Reject</button>
+                        </a>
+                    </div>
+                </li>
+                {% else %}
+                <li class="list-group-item">No requests found.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleProfile() {
+    var profileSection = document.getElementById("profile-section");
+    if (profileSection.style.display === "none") {
+        profileSection.style.display = "block";
+    } else {
+        profileSection.style.display = "none";
+    }
+}
+</script>
+
+
+            <!-- Content Section -->
+            <div class="content">
+                <!-- Profile Section -->
+<!--                <div class="profile-section">-->
+<!--                    {%if is_profile_image%}-->
+<!--                    <img src="/profile-image" alt="Profile Image" class="profile-image" id="profile-image">-->
+<!--                    {%else%}-->
+<!--                    <img src="/static/download.jpg" alt="Profile Image" class="profile-image" >-->
+<!--                    {%endif%}-->
+<!--                    <div>-->
+<!--                        <h5>Welcome, <span id="user-name">{{ username }}</span>!</h5>-->
+<!--                        <p>Explore and engage with your communities. {{hello}}</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <div class="profile-section">
+    <!-- Profile Image with clickable functionality to change the image -->
+    {% if is_profile_image %}
+    <img src="/profile-image" alt="Profile Image" class="profile-image" id="profile-image" onclick="document.getElementById('profile_image_input').click();">
+    {% else %}
+    <img src="/static/download.jpg" alt="Profile Image" class="profile-image" onclick="document.getElementById('profile_image_input').click();">
+    {% endif %}
+    <div>
+        <h5>Welcome, <span id="user-name">{{ username }}</span>!</h5>
+        <p>Explore and engage with your communities. {{ hello }}</p>
+    </div>
+    <!-- Hidden file input for changing profile image -->
+    <form method="POST" action="/update_profile_image" enctype="multipart/form-data">
+        <input type="file" id="profile_image_input" name="profile_image" accept="image/*" style="display:none;" onchange="this.form.submit()">
+        <button type="submit" style="display:none;"></button>
+    </form>
+</div>
+
+
+                <!-- NeighborNet Features Section -->
+                <h1 class="text-center">NeighborNet Features</h1>
+                <p class="text-center">Connect and collaborate with your neighborhood community!</p>
+
+                <!-- Explore Communities Section -->
+                <div class="explore-section">
+                    <h5>Explore Communities</h5>
+                    <div class="explore-slider">
+                        {% for i in all_community %}
+                        <div class="explore-card">
+                            <!-- <img src="tech.jpg" > -->
+                            <h6>{{ i['community_name'] }} <span class="info-icon">ℹ️<span class="tooltip">{{ i['description'] }}</span></span></h6>
+                            {% if i.is_member %}
+                                <a href="#" onclick="confirmleavegroup('{{url_for('home.leave_group',community_id =i._id )}}')"> <button class="btn btn-sm btn-danger">Leave Group</button></a>
+                            {% else %}
+                                 {% if i.privacy_type == "public" %}
+                                      <a href="{{ url_for('home.add_user', community_id=i._id) }}"><button class="btn btn-sm btn-success">Join Group</button></a>
+                                 {% elif i.privacy_type=="private" and already_requested==True%}
+                                      <button class="btn btn-sm btn-pending">Request Sent</button>
+                                 {% elif i.privacy_type == "private" %}
+                                      <a href="{{url_for('home.add_user_request',community_id=i._id)}}"><button class="btn btn-sm btn-success">Request to Join</button></a>
+                                 {% endif %}
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Search Page Link -->
+                <div class="search-link">
+                    <a href="/searches">
+                        <button class="btn btn-outline-primary btn-lg">Search Communities</button>
+<!--                        Search Users & Communities-->
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2024 NeighborNet. All rights reserved.
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function confirmleavegroup(url){
+        if (confirm("Are you sure you want to leave group ? This action cannot be undone.")){
+           window.location.href=url
+        }
+        }
+    </script>
+<script>
+    function confirmsignout(url){
+     if(confirm("Are You Sure you want to signout ? This action cant be undone")){
+      window.location.href=url
+     }
+    }
+</script>
+</body>
+</html>
+
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>-->
+<!--</body>-->
+<!--</html>-->

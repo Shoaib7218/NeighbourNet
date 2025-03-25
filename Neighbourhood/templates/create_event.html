@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeighborNet - Create Event</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .main-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .create-event-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 500px;
+        }
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 14px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+         {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+        <div class="main-container">
+            <div class="create-event-form">
+                <h3 class="text-center mb-4">Create Event</h3>
+                <form action="/create_event1" method = 'POST'>
+
+                    <!-- Hidden field to pass community_id -->
+                    <input type="hidden" name="community_id" value="{{ commo_id }}">
+<!--                     <ul>-->
+<!--                         {% for i in data %}-->
+<!--                         <li>-->
+<!--                             {{i.title}}-->
+<!--                         </li>-->
+<!--                         {% endfor %}-->
+<!--                     </ul>-->
+                    <div class="mb-3">
+                        <label for="eventTitle" class="form-label">Event Title</label>
+                        <input type="text" class="form-control" id="eventTitle" name="event-title" placeholder="Enter event title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="eventDescription" class="form-label">Event Description</label>
+                        <textarea class="form-control" id="eventDescription" rows="3" name="event-descrp" placeholder="Enter event description" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="eventDate" class="form-label">Event Date</label>
+                        <input type="date" class="form-control" name="event-date" id="eventDate" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="eventTime" class="form-label">Event Time</label>
+                        <input type="time" class="form-control" name="event-time" id="eventTime" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Create Event</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2024 NeighborNet. All rights reserved.
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

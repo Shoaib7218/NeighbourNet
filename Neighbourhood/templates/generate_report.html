@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeighborNet - Generate Report</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            background-color: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .main-container {
+            margin-top: 20px;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            color: #333;
+        }
+        .back-btn {
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .report-form {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 14px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid main-container">
+         {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+        <div class="header">
+            <h1>Generate Report</h1>
+            <a href="/lost-and-found" class="back-btn">Back to Lost and Found</a>
+        </div>
+        <form class="report-form" method="POST" action="/submit-report" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="item-name" class="form-label">Item Name</label>
+                <input type="hidden" name="community_id" value="{{community_id}}">
+                <input type="text" class="form-control" id="item-name" name="item-name" required>
+            </div>
+            <div class="mb-3">
+                <label for="item-description" class="form-label">Item Description</label>
+                <textarea class="form-control" id="item-description" name="item-description" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="item-image" class="form-label">Upload Image</label>
+                <input type="file" class="form-control" id="item-image" name="item-image" accept="image/*" >
+            </div>
+            <div class="mb-3">
+                <label for="contact" class="form-label">Contact Information</label>
+                <input type="text" class="form-control" id="contact" name="contact" required>
+            </div>
+            <div class="mb-3">
+                <label for="location" class="form-label">Location Lost</label>
+                <input type="text" class="form-control" id="location" name="location" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Report</button>
+        </form>
+    </div>
+    <div class="footer">
+        &copy; 2024 NeighborNet. All rights reserved.
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

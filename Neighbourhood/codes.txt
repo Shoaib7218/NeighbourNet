@@ -1,0 +1,71 @@
+from flask import Flask, render_template, request, redirect, url_for, session, Blueprint
+from flask_socketio import send, join_room, leave_room
+from extensions import socketio
+from pymongo import MongoClient
+from bson import ObjectId
+
+community_page_route = Blueprint('c_page', __name__)
+
+mongo_uri = "mongodb://localhost:27017/"
+client = MongoClient(mongo_uri)
+
+db = client['NeighbourNet']
+community_collection = db['Communities']
+user_collection = db['User_details']
+message_collection = db['Messages_data']
+
+# dict for displaying messages
+messages = {}
+
+@community_page_route.route('/community/<community_n>/<username>')
+def render_page(community_n,username):
+    community = community_collection.find_one({'_id': ObjectId(community_n)})
+    c_name = community.get('community_name', 'Unnamed')
+    c_id = str(community.get('_id'))
+
+    if community:
+        members = community.get('users', [])
+    else:
+        members = []
+
+    names = user_collection.find({'username': {'$in': members}})
+    name1 = [name.get('first_name', 'unknown') + " " + name.get('last_name', '') for name in names]
+    user_name = username
+    print(user_name)
+    first_ = user_collection.find_one({'username':user_name})
+    first_name = first_.get('first_name',"NoNe")
+    print(first_name)
+    community_messages = messages.get(c_id, [])
+    print("Messages for community:", community_messages)
+    return render_template('community_page.html', community_name=c_name, members=name1, community_id=c_id, messages=community_messages,user = user_name,first_=first_name)
+
+@socketio.on('join')
+def on_join(data):
+    username = data['username']
+    room = data['room']  # This represents the community
+    join_room(room)
+    send(f"{username} has entered the community's Chatroom.", to=room)
+
+@socketio.on('leave')
+def on_leave(data):
+    username = data['username']
+    room = data['room']
+    leave_room(room)
+    send(f"{username} has left the community's Chatroo.", to=room)
+
+@socketio.on('message')
+def on_message(data):
+    community = data['room']
+    username = data['username']
+    message = data['message']
+
+    # Ensure messages dictionary is initialized for the community
+    if community not in messages:
+        messages[community] = []
+
+    # Append the new message for the community
+    messages[community].append(f'{username}: {message}')
+
+
+    # Broadcast the message to the room (community)
+    send(f'{username}: {message}', to=community)
